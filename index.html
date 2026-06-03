@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lily Dey — Machine Learning Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #16161f;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --teal: #4ecdc4;
+    --teal-dim: #2a8f89;
+    --text: #e8e8f0;
+    --text-muted: #888899;
+    --border: rgba(201,168,76,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(78,205,196,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 70%, rgba(201,168,76,0.06) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 750px; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal); border: 1px solid var(--teal-dim);
+    padding: 0.35rem 0.9rem; border-radius: 2rem; margin-bottom: 1.8rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--text);
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-name em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-title {
+    margin: 1rem 0 1.5rem;
+    font-size: 1.1rem; font-weight: 400;
+    color: var(--text-muted);
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .hero-desc {
+    font-size: 0.97rem; line-height: 1.8;
+    color: var(--text-muted); max-width: 560px;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .hero-cta {
+    margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.8rem; border-radius: 0.3rem;
+    font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
+  }
+  .btn-gold {
+    background: var(--gold); color: #0a0a0f; font-weight: 500;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-stats {
+    margin-top: 4rem; display: flex; gap: 3rem;
+    animation: fadeUp 0.7s 0.5s ease both;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--gold);
+  }
+  .stat-label { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.06em; margin-top: 0.2rem; }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 0.7rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    margin-bottom: 3rem;
+  }
+  .section-divider {
+    width: 50px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { line-height: 1.9; color: var(--text-muted); margin-bottom: 1rem; }
+  .about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+  .highlight-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.5rem; border-radius: 0.3rem;
+  }
+  .highlight-card h4 { font-size: 0.85rem; color: var(--gold); margin-bottom: 0.3rem; }
+  .highlight-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+  /* ── RESEARCH ── */
+  .research-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+  .research-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem; padding: 1.8rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .research-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .research-card:hover { border-color: rgba(78,205,196,0.3); transform: translateY(-3px); }
+  .research-card:hover::before { opacity: 1; }
+  .research-card .pub-year { font-size: 0.72rem; color: var(--teal); letter-spacing: 0.1em; margin-bottom: 0.7rem; }
+  .research-card h3 { font-size: 0.92rem; line-height: 1.55; margin-bottom: 0.7rem; font-weight: 500; }
+  .research-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+  .research-card .venue { font-size: 0.78rem; color: var(--gold); margin-top: 0.8rem; font-style: italic; }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--surface); }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .timeline-item { position: relative; padding-bottom: 2.5rem; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2.3rem; top: 0.35rem;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+  }
+  .timeline-period { font-size: 0.72rem; color: var(--teal); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+  .timeline-role { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 0.2rem; }
+  .timeline-org { font-size: 0.85rem; color: var(--gold); margin-bottom: 0.8rem; }
+  .timeline-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+  .timeline-desc li { margin-bottom: 0.3rem; list-style: none; padding-left: 1rem; position: relative; }
+  .timeline-desc li::before { content: '›'; position: absolute; left: 0; color: var(--teal); }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.5rem;
+  }
+  .skill-group h3 { font-size: 0.8rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    font-size: 0.75rem; padding: 0.3rem 0.7rem; border-radius: 2rem;
+    background: rgba(78,205,196,0.08); border: 1px solid rgba(78,205,196,0.2);
+    color: var(--text-muted);
+  }
+
+  /* ── AWARDS ── */
+  #awards { background: var(--surface); }
+  .awards-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .award-card {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 0.4rem; padding: 1.2rem;
+  }
+  .award-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .award-name { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .award-org { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* ── CONTACT ── */
+  #contact {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, rgba(78,205,196,0.05) 100%);
+    border-top: 1px solid var(--border);
+  }
+  .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: var(--text-muted); text-decoration: none;
+    font-size: 0.85rem; padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border); border-radius: 2rem;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.5rem 4rem; text-align: center;
+    font-size: 0.75rem; color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero, section { padding: 5rem 1.5rem 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Lily Dey</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">PhD Candidate · University of Calgary</div>
+    <h1 class="hero-name">Lily <em>Dey</em></h1>
+    <p class="hero-title">Machine Learning Researcher &amp; AI Ethics Advocate</p>
+    <p class="hero-desc">Developing scalable, interpretable, and trust-aware AI systems for user-generated content. Bridging academia and industry through ethical, human-centric machine intelligence.</p>
+    <div class="hero-cta">
+      <a href="#research" class="btn btn-gold">View Research</a>
+      <a href="mailto:lily.dey@ucalgary.ca" class="btn btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">11+</div>
+        <div class="stat-label">Publications</div>
+      </div>
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Years R&amp;D</div>
+      </div>
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Awards</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Degrees</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">Background</div>
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I am a PhD candidate in Computer Science at the University of Calgary, working on scalable and interpretable trust-aware modeling for user-generated online content. My research sits at the intersection of machine learning, NLP, and responsible AI.</p>
+        <p>With over a decade of industry experience spanning fintech, enterprise software, and AI research, I bring a rare combination of theoretical depth and practical engineering to complex problems. I've transitioned from leading software teams at Midland Bank to conducting cutting-edge ML research — a journey that has deeply shaped my perspective on building technology that genuinely serves people.</p>
+        <p>I'm passionate about AI transparency, ethical data practices, and making research accessible. As a Teaching Assistant for courses in security and database systems, I also work to instill responsible AI thinking in the next generation of CS students.</p>
+      </div>
+      <div class="about-highlights reveal">
+        <div class="highlight-card">
+          <h4>🎯 Research Focus</h4>
+          <p>Trust-aware modeling, deceptive content detection, LLM-driven opinion mining, and trustworthy AI systems</p>
+        </div>
+        <div class="highlight-card">
+          <h4>🏫 Current Role</h4>
+          <p>Graduate Research &amp; Teaching Assistant at University of Calgary — TA for CPSC 329 &amp; CPSC 471</p>
+        </div>
+        <div class="highlight-card">
+          <h4>🌍 Impact Areas</h4>
+          <p>Public health trust, parliamentary NLP, AI in education, and financial technology</p>
+        </div>
+        <div class="highlight-card">
+          <h4>📍 Location</h4>
+          <p>Calgary, Alberta, Canada</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH / PUBLICATIONS -->
+<section id="research">
+  <div class="section-inner">
+    <div class="section-label">Scholarship</div>
+    <h2 class="section-title">Selected Publications</h2>
+    <div class="research-grid">
+
+      <div class="research-card reveal">
+        <div class="pub-year">2025</div>
+        <h3>An Intelligent Framework for Deceptive Review Detection Using Advanced Trust Vector Modeling</h3>
+        <p>A novel framework leveraging trust vectors for detecting fake and deceptive reviews in online platforms.</p>
+        <div class="venue">PST 2025 — Privacy, Security and Trust Conference</div>
+      </div>
+
+      <div class="research-card reveal">
+        <div class="pub-year">2025</div>
+        <h3>Exploring Public Trust through LLM-Driven Opinion Mining</h3>
+        <p>Applying large language models to mine and analyze public trust signals from social and political discourse.</p>
+        <div class="venue">CISIM 2025 — Springer Nature Switzerland</div>
+      </div>
+
+      <div class="research-card reveal">
+        <div class="pub-year">2025 · In Review</div>
+        <h3>A Comparative Study of ML and Deep Learning for News Classification</h3>
+        <p>Benchmarking classical machine learning against deep neural architectures on news categorization tasks.</p>
+        <div class="venue">International Journal of Digital Human</div>
+      </div>
+
+      <div class="research-card reveal">
+        <div class="pub-year">2024</div>
+        <h3>Enhancing Brain Tumor Diagnosis through Adaptive Feature Aggregation-Based Transfer Learning</h3>
+        <p>Adaptive transfer learning pipeline for improving clinical accuracy in brain tumor classification from MRI.</p>
+        <div class="venue">IEEE ICIEA 2024</div>
+      </div>
+
+      <div class="research-card reveal">
+        <div class="pub-year">2024</div>
+        <h3>Trustworthy and Responsible AI for Human-Centric Autonomous Decision-Making Systems</h3>
+        <p>A comprehensive framework addressing transparency, fairness, and accountability in autonomous AI.</p>
+        <div class="venue">arXiv:2408.15550</div>
+      </div>
+
+      <div class="research-card reveal">
+        <div class="pub-year">2024</div>
+        <h3>A Comprehensive Review of Trustworthy, Ethical, and Explainable Computer Vision in Online Social Media</h3>
+        <p>Survey of XAI and ethical frameworks applied to computer vision in social media contexts.</p>
+        <div class="venue">Global Perspectives on Computer Vision in Cybersecurity</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-period">2023 — Present</div>
+        <div class="timeline-role">Graduate Research &amp; Teaching Assistant</div>
+        <div class="timeline-org">University of Calgary</div>
+        <ul class="timeline-desc">
+          <li>TA for CPSC 329 (Information Security &amp; Privacy) and CPSC 471 (Database Management)</li>
+          <li>Developing LLM-driven framework analyzing Canadian public trust in health institutions</li>
+          <li>Speaker at Emerging Educators Speaker Series (June 2026): "AI in Action: Supporting Student Learning"</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-period">Jan 2024 — Dec 2024</div>
+        <div class="timeline-role">Research Intern</div>
+        <div class="timeline-org">University of Calgary — Transdisciplinary Health Research Project</div>
+        <ul class="timeline-desc">
+          <li>Transdisciplinary project with UCalgary, AHS, One Child Every Child Initiative, and Pluralism Calgary</li>
+          <li>Conducted data analytics, web scraping, sentiment analysis, and keyword modeling</li>
+          <li>Developed LLMs and communicated findings to policy partners and community organizations</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-period">2017 — 2023</div>
+        <div class="timeline-role">First Assistant Vice President</div>
+        <div class="timeline-org">Midland Bank Limited, Bangladesh</div>
+        <ul class="timeline-desc">
+          <li>Core member of R&amp;D team; led design and implementation of financial software solutions</li>
+          <li>Supervised cross-functional teams of 15 members across the full SDLC</li>
+          <li>Built Midland Bank CMS, Cash Management System, and Digital Account Opening platform</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-period">2016 — 2017</div>
+        <div class="timeline-role">Lead Software Engineer</div>
+        <div class="timeline-org">BJIT Limited, Bangladesh · Valmet R&amp;D Joint Venture (Finland)</div>
+        <ul class="timeline-desc">
+          <li>Led large-scale application development and stakeholder product presentations</li>
+          <li>Industrial R&amp;D: "Decision based information mapping for dynamic drawings" (Valmet Finland)</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-period">2012 — 2016</div>
+        <div class="timeline-role">Lead Programmer</div>
+        <div class="timeline-org">ASD Bangladesh · Standard Chartered Bank · Premier Bank</div>
+        <ul class="timeline-desc">
+          <li>Coordinated a development team of 20 members on corporate client projects</li>
+          <li>Delivered systems for Standard Chartered, Premier Bank, and Habib Bank</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Expertise</div>
+    <h2 class="section-title">Skills &amp; Technologies</h2>
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <h3>ML &amp; AI</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Deep Learning</span>
+          <span class="skill-tag">LLMs</span>
+          <span class="skill-tag">NLP</span>
+          <span class="skill-tag">Transfer Learning</span>
+          <span class="skill-tag">Sentiment Analysis</span>
+          <span class="skill-tag">Trust Modeling</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C#</span>
+          <span class="skill-tag">ASP.NET</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">MATLAB</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Data &amp; Tools</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Web Scraping</span>
+          <span class="skill-tag">Data Analytics</span>
+          <span class="skill-tag">Visualization</span>
+          <span class="skill-tag">SQL Server</span>
+          <span class="skill-tag">Git / SVN</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Research</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">XAI</span>
+          <span class="skill-tag">Ethical AI</span>
+          <span class="skill-tag">Zero-shot Classification</span>
+          <span class="skill-tag">Academic Writing</span>
+          <span class="skill-tag">Conference Presenting</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section-inner">
+    <div class="section-label">Recognition</div>
+    <h2 class="section-title">Awards &amp; Honours</h2>
+    <div class="awards-list">
+      <div class="award-card reveal">
+        <div class="award-icon">🏆</div>
+        <div>
+          <div class="award-name">Alberta Graduate Excellence Scholarship (AGES)</div>
+          <div class="award-org">University of Calgary · 2026</div>
+        </div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">🎓</div>
+        <div>
+          <div class="award-name">International Graduate Tuition Award</div>
+          <div class="award-org">University of Calgary · 2026–2029</div>
+        </div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">🌟</div>
+        <div>
+          <div class="award-name">International Graduate Recruitment Award</div>
+          <div class="award-org">University of Calgary · 2026</div>
+        </div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">🎓</div>
+        <div>
+          <div class="award-name">International Graduate Tuition Award</div>
+          <div class="award-org">University of Calgary · 2023–2025</div>
+        </div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">📄</div>
+        <div>
+          <div class="award-name">IEEE BDS Best Paper Award</div>
+          <div class="award-org">IEEE ICCIT 2014 — "Introducing Active Learning on Text-to-Emotion Analyzer"</div>
+        </div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">💼</div>
+        <div>
+          <div class="award-name">Best Employee Appreciation Award</div>
+          <div class="award-org">Advanced Software Development · Managing Director · June 2014</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Let's Connect</div>
+    <h2 class="section-title" style="margin-bottom:1rem;">Get in Touch</h2>
+    <p style="color:var(--text-muted); max-width:480px; margin:0 auto; font-size:0.95rem; line-height:1.8;">
+      Open to research collaborations, speaking engagements, and academic discussions around trustworthy AI and NLP.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:lily.dey@ucalgary.ca" class="contact-link">✉️ lily.dey@ucalgary.ca</a>
+      <a href="https://linkedin.com/in/lilydey" target="_blank" class="contact-link">in LinkedIn</a>
+      <a href="https://scholar.google.com" target="_blank" class="contact-link">📚 Google Scholar</a>
+      <a href="https://github.com/lilydey" target="_blank" class="contact-link">⌥ GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Lily Dey · University of Calgary · Built with care</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
